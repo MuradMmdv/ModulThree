@@ -80,7 +80,7 @@ align-items: center;
 color: #9F9F9F;
 }
 
-#ul-section{
+#ul-section-one{
     width: 260px;
 height: 30px;
 border: 1px solid #E5E5E5;
@@ -92,7 +92,19 @@ justify-content: space-between;
 padding: 0;
 }
 
-#money{
+#ul-section-two{
+    width: 260px;
+height: 30px;
+border: 1px solid #E5E5E5;
+border-radius: 3px;
+margin: -15px 0 0 253px;
+list-style: none;
+display: flex;
+justify-content: space-between;
+padding: 0;
+}
+
+.money{
 width: 80px;
 height: 28px;
 font-family: 'Roboto';
@@ -108,7 +120,7 @@ border-left: 1px solid #E5E5E5;
 
 }
 
-#money:first-child{
+.money:first-child{
     border: none;
 }
 
@@ -162,7 +174,7 @@ main{
     margin: 135px 0 0 -450px;
 }
 
-#money:hover{
+.money:hover{
     background-color: #833AE0;
     color: white;
     cursor: pointer;
