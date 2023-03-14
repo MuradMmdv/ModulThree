@@ -5,64 +5,71 @@ const ulSectionTwo = document.getElementById("ul-section-two");
 const fromCurrencyInput = document.getElementById("from-currency");
 const toCurrencyInput = document.getElementById("to-currency");
 
-// varsayılan para birimleri
-let fromCurrency = "USD";
-let toCurrency = "RUB";
+// default seçimlər
+let fromCurrency = "";
+let toCurrency = "";
 
-// ul-section-one için event listener
+// ul-section-one üçün event listener
 ulSectionOne.addEventListener("click", (event) => {
-  // event.target bir li elementi olduğundan emin olun
+  // event.target bir li elementi kimi
   if (event.target.matches("li.money")) {
-    // seçilen para birimini al
+    // seçilen pul vahidi
     fromCurrency = event.target.dataset.currency;
-    // background rengini değiştir
+    // background rəngini dəyiş
     ulSectionOne.querySelectorAll("li.money").forEach((li) => {
       li.style.backgroundColor = li.dataset.currency === fromCurrency ? "#833AE0" : "white";
     });
-    // para birimi dönüştürme işlemini yap
+    // dönüştür
     convertCurrency();
   }
 });
 
-// ul-section-two için event listener
+// ul-section-two üçün event listener
 ulSectionTwo.addEventListener("click", (event) => {
-  // event.target bir li elementi olduğundan emin olun
+  // event.target bir li elementi kimi
   if (event.target.matches("li.money")) {
-    // seçilen para birimini al
+    // seçilen pul vahidi
     toCurrency = event.target.dataset.currency;
-    // background rengini değiştir
+
+    // background rengini dəyiş
     ulSectionTwo.querySelectorAll("li.money").forEach((li) => {
       li.style.backgroundColor = li.dataset.currency === toCurrency ? "#833AE0" : "white";
     });
-    // para birimi dönüştürme işlemini yap
+    // dəyiş
     convertCurrency();
   }
 });
 
-// inputlarda değer değiştiğinde otomatik çevirme işlemi yap
+// inputlarda dəyişiklik
 fromCurrencyInput.addEventListener("input", convertCurrency);
 toCurrencyInput.addEventListener("input", convertCurrency);
 
-// para birimi dönüştürme işlemini yap
+// dönüşdür
 function convertCurrency() {
-  // eğer girdi boş ise 0 kabul et
+  // 0 olsa o qəbul elə
   const fromValue = fromCurrencyInput.value === "" ? 0 : parseFloat(fromCurrencyInput.value);
   const toValue = toCurrencyInput.value === "" ? 0 : parseFloat(toCurrencyInput.value);
-  // API'den oranı al
+  // APIdən məlumatları al
   fetch(`https://api.exchangerate.host/latest?base=${fromCurrency}&symbols=${toCurrency}`)
     .then((response) => response.json())
     .then((data) => {
-      // oranı kullanarak para birimini dönüştür
-      const rate = data.rates[toCurrency];
-      const convertedValue = fromValue * rate;
-      // dönüştürülmüş değeri diğer inputa yaz
+      console.log(data.rates);
+      // rate ilə dəyəri al
+      let rate = data.rates[toCurrency];
+      let convertedValue = fromValue * rate;
+      // inputa yazdır
       toCurrencyInput.value = convertedValue.toFixed(2);
-const valueTodayElement = document.getElementById("value-today");
-if (valueTodayElement) {
-  const fromValueToday = data.rates[fromCurrency];
-  const toValueToday = data.rates[toCurrency];
-  valueTodayElement.textContent = `1 ${fromCurrency} = ${toValueToday.toFixed(4)} ${toCurrency}, 1 ${toCurrency} = ${fromValueToday.toFixed(4)} ${fromCurrency}`;
+let valueTodayElementOne = document.getElementById("value-today-one");
+if (valueTodayElementOne) {
+  let	 toValueToday = data.rates[toCurrency];
+  valueTodayElementOne.textContent = `1 ${fromCurrency} = ${toValueToday.toFixed(4)} ${toCurrency}`;
 }
+let valueTodayElementTwo = document.getElementById("value-today-two");
+if (valueTodayElementTwo) {
+  let fromValueToday =  data.rates[fromCurrency];
+  valueTodayElementTwo.textContent = `1 ${toCurrency} = ${toValue.toFixed(4)} ${fromCurrency}`;
+}
+console.log(data.rates);
     })
     .catch((error) => {
       console.log(error);
@@ -71,8 +78,4 @@ if (valueTodayElement) {
 
 
 
-
-// const valueTodayElements = document.querySelectorAll('#value-today');
-// valueTodayElements.forEach(element => {
-//   element.innerText = `1 ${document.querySelector('#ul-section-one .active').dataset.currency} = ${await getExchangeRates(document.querySelector('#ul-section-one .active').dataset.currency, document.querySelector('#ul-section-two .active').dataset.currency).toFixed(4)} ${document.querySelector('#
 

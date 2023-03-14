@@ -134,7 +134,7 @@ margin: 20px 0 0 253px;
 }
 
 input{
-width: 124px;
+width: 240px;
 height: 38px;
 padding: 11px 0 0 14px;
 border: none;
@@ -151,9 +151,24 @@ input:focus {
   }
   
 
-#value-today{
+#value-today-one{
     padding: 15px 0 0 16px;
-    width: 119px;
+    width: 140px;
+height: 28px;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 14px;
+display: flex;
+align-items: center;
+
+color: #C6C6C6;
+}
+
+#value-today-two{
+    padding: 15px 0 0 16px;
+    width: 140px;
 height: 28px;
 font-family: 'Roboto';
 font-style: normal;
