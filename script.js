@@ -18,6 +18,8 @@ ulSectionOne.addEventListener("click", (event) => {
     // background rəngini dəyiş
     ulSectionOne.querySelectorAll("li.money").forEach((li) => {
       li.style.backgroundColor = li.dataset.currency === fromCurrency ? "#833AE0" : "white";
+      li.style.color = li.dataset.currency === fromCurrency ? "white" : "#C6C6C6";
+
     });
     // dönüştür
     convertCurrency();
@@ -34,7 +36,21 @@ ulSectionTwo.addEventListener("click", (event) => {
     // background rengini dəyiş
     ulSectionTwo.querySelectorAll("li.money").forEach((li) => {
       li.style.backgroundColor = li.dataset.currency === toCurrency ? "#833AE0" : "white";
+      li.style.color = li.dataset.currency === toCurrency ? "white" : "#C6C6C6";
+
+      // li.addEventListener("mouseenter", function() {
+      //   li.style.color = "white";
+      //   li.style.backgroundColor = "#833AE0";
+
+      // });
+      
+      // li.addEventListener("mouseleave", function() {
+      //   li.style.color = "#C6C6C6";
+      //   li.style.backgroundColor = "white";
+
+      // });
     });
+    
     // dəyiş
     convertCurrency();
   }
@@ -42,13 +58,11 @@ ulSectionTwo.addEventListener("click", (event) => {
 
 // inputlarda dəyişiklik
 fromCurrencyInput.addEventListener("input", convertCurrency);
-toCurrencyInput.addEventListener("input", convertCurrency);
 
 // dönüşdür
 function convertCurrency() {
   // 0 olsa o qəbul elə
-  const fromValue = fromCurrencyInput.value === "" ? 0 : parseFloat(fromCurrencyInput.value);
-  const toValue = toCurrencyInput.value === "" ? 0 : parseFloat(toCurrencyInput.value);
+  const fromValue = fromCurrencyInput.value ;
   // APIdən məlumatları al
   fetch(`https://api.exchangerate.host/latest?base=${fromCurrency}&symbols=${toCurrency}`)
     .then((response) => response.json())
@@ -59,16 +73,12 @@ function convertCurrency() {
       let convertedValue = fromValue * rate;
       // inputa yazdır
       toCurrencyInput.value = convertedValue.toFixed(2);
+      //günün kursunu yazdır
 let valueTodayElementOne = document.getElementById("value-today-one");
-if (valueTodayElementOne) {
-  let	 toValueToday = data.rates[toCurrency];
-  valueTodayElementOne.textContent = `1 ${fromCurrency} = ${toValueToday.toFixed(4)} ${toCurrency}`;
-}
+  valueTodayElementOne.textContent = `1 ${fromCurrency} = ${rate.toFixed(4)} ${toCurrency}`;
+
 let valueTodayElementTwo = document.getElementById("value-today-two");
-if (valueTodayElementTwo) {
-  let fromValueToday =  data.rates[fromCurrency];
-  valueTodayElementTwo.textContent = `1 ${toCurrency} = ${toValue.toFixed(4)} ${fromCurrency}`;
-}
+  valueTodayElementTwo.textContent = `1 ${toCurrency} = ${rate.toFixed(4)} ${fromCurrency}`;
 console.log(data.rates);
     })
     .catch((error) => {
