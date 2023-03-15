@@ -77,8 +77,9 @@ function convertCurrency() {
 let valueTodayElementOne = document.getElementById("value-today-one");
   valueTodayElementOne.textContent = `1 ${fromCurrency} = ${rate.toFixed(4)} ${toCurrency}`;
 
+  let fromValueToday = 1 / rate
 let valueTodayElementTwo = document.getElementById("value-today-two");
-  valueTodayElementTwo.textContent = `1 ${toCurrency} = ${rate.toFixed(4)} ${fromCurrency}`;
+  valueTodayElementTwo.textContent = `1 ${toCurrency} = ${fromValueToday.toFixed(4)} ${fromCurrency}`;
 console.log(data.rates);
     })
     .catch((error) => {
